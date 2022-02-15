@@ -1,0 +1,5 @@
+This code has been created to demonstrate my ability to write computer vision applications in Python
+
+The application will automatically count the total number of coins in an image using machine learning.
+
+The tool set used is pytorch
