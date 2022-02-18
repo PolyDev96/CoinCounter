@@ -1,0 +1,5 @@
+First task was to create the environement in Anaconda. Spyder was used as it was my preference
+
+Then the datasets had to be created, in which OpenLabeeling was used. 
+This was used as it produced the correct file format for use with the YOLOv5 the intended network architecture.
+
