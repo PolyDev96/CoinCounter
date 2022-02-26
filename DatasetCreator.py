@@ -17,10 +17,17 @@ import DataLoader as dt
 import PredicitionEvaluation as evaluator
 import CoinCounterSegmentation as CCSeg
 
+import os
+from os import path
+import random
+
 # Config parameters
 mainPath = 'C://Users//callu//Documents//Projects//Coin Counter//ObjectDetector//'
-datasetName = 'Training Dataset//'
-numberOfImages = 2
+datasetName = 'Original Images//'
+numberOfImages = 18
+
+valSplit = 10
+testSplit = 20
 
 #%% Load and check first image and annotations
 #Load the image
@@ -52,7 +59,53 @@ for imageIndex in range(numberOfImages):
     
 
 
-
+#%% Split the dataset into train, test, and val
     
-
+for className in classNames:
+    
+    # create the required test and val folders
+    for objectClass in classNames:
+        
+        testDirectory = mainPath + 'SegmentedDataset//test//' + className
+        valDirectory = mainPath + 'SegmentedDataset//val//' + className
+        
+        if not path.exists(testDirectory):
+            os.mkdir(testDirectory)
+            
+        if not path.exists(valDirectory):
+            os.mkdir(valDirectory)
+    
+    # Find the number of images in the class
+    imageCount = len(os.listdir(mainPath + 'SegmentedDataset//' + className+ '//'))
+    
+    # Find the number of test and val images
+    testImageCount = int(imageCount * testSplit/100)
+    valImageCount = int(imageCount * valSplit/100)
+    
+    # Get the samples
+    sampledImages = random.sample(range(1, imageCount), testImageCount + valImageCount)
+    
+    # Split the samples into test and val
+    testImages = sampledImages[0:testImageCount-1]
+    valImages = sampledImages[testImageCount:]
+    
+    
+    # Get the test images
+    for testImage in testImages:
+        
+        originalFilePath = mainPath + 'SegmentedDataset//' + className + '//image' + str(testImage) + '.png'
+        newFilePath = mainPath + 'SegmentedDataset//test//' + className + '//image' + str(testImage) + '.png'
+        
+        os.rename(originalFilePath, newFilePath)
+        
+    # Get the val images
+    for valImage in valImages:
+        
+        originalFilePath = mainPath + 'SegmentedDataset//' + className + '//image' + str(valImage) + '.png'
+        newFilePath = mainPath + 'SegmentedDataset//val//' + className + '//image' + str(valImage) + '.png'
+        
+        os.rename(originalFilePath, newFilePath)
+        
+        
+        
 

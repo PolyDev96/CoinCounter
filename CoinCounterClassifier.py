@@ -11,7 +11,7 @@ mainPath = 'C://Users//callu//Documents//Projects//Coin Counter//ObjectDetector/
 resizeFactor = 10
 
 #Load the image
-imagePath = mainPath + 'Training Dataset//image1.jpg'
+imagePath = mainPath + 'Original Images//image1.jpg'
 img = cv2.cvtColor(cv2.imread(imagePath), cv2.COLOR_BGR2RGB)
 
 # Create the scaled image
@@ -25,7 +25,7 @@ imgScaled = cv2.resize(img, (newSizeX, newSizeY))
 keypoints = CCSeg.GetImageKeyPoints(imgScaled)
 
 # Seperate each instance
-CCSeg.SegmentFromScaledImg(imgScaled, keypoints, -10, mainPath+ 'SegmentedCoinsScaled//')
-CCSeg.SegmentFromOriginalImg(img, keypoints, -10, mainPath + 'SegmentedCoins//', resizeFactor)
+CCSeg.SegmentFromScaledImg(imgScaled, keypoints, 5, mainPath+ 'SegmentedCoinsScaled//')
+CCSeg.SegmentFromOriginalImg(img, keypoints, 5, mainPath + 'SegmentedCoins//', resizeFactor)
 
 # Perform the classification
