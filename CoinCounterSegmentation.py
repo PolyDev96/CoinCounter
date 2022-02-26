@@ -53,11 +53,11 @@ def SegmentFromScaledImg(img, keypoints, border, filePath):
     for keypoint in keypoints:
         
         # Define the crop box from the keypoint
-        topLeftX = int((keypoint.pt[0] - keypoint.size) - border)
-        topLeftY = int((keypoint.pt[1] - keypoint.size) - border)
+        topLeftX = int((keypoint.pt[0] - keypoint.size/2) - border)
+        topLeftY = int((keypoint.pt[1] - keypoint.size/2) - border)
         
-        bottomRightX = int((keypoint.pt[0] + keypoint.size) + border)
-        bottomRightY = int((keypoint.pt[1] + keypoint.size) + border)
+        bottomRightX = int((keypoint.pt[0] + keypoint.size/2) + border)
+        bottomRightY = int((keypoint.pt[1] + keypoint.size/2) + border)
         
         cropped_image = img[topLeftY:bottomRightY, topLeftX:bottomRightX, :]
         cv2.imwrite(filePath + "image" + str(keyPointIndex) + ".png", cropped_image)
@@ -78,11 +78,11 @@ def SegmentFromOriginalImg(img, keypoints, border, filePath, scaleFactor):
     for keypoint in keypoints:
         
         # Define the crop box from the keypoint
-        topLeftX = int((keypoint.pt[0] - keypoint.size) - border) * scaleFactor
-        topLeftY = int((keypoint.pt[1] - keypoint.size) - border) * scaleFactor
+        topLeftX = int((keypoint.pt[0] - keypoint.size/2) - border) * scaleFactor
+        topLeftY = int((keypoint.pt[1] - keypoint.size/2) - border) * scaleFactor
         
-        bottomRightX = int((keypoint.pt[0] + keypoint.size) + border) * scaleFactor
-        bottomRightY = int((keypoint.pt[1] + keypoint.size) + border) * scaleFactor
+        bottomRightX = int((keypoint.pt[0] + keypoint.size/2) + border) * scaleFactor
+        bottomRightY = int((keypoint.pt[1] + keypoint.size/2) + border) * scaleFactor
         
         cropped_image = img[topLeftY:bottomRightY, topLeftX:bottomRightX, :]
         cv2.imwrite(filePath + "image" + str(keyPointIndex) + ".png", cropped_image)

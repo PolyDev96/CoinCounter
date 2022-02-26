@@ -25,14 +25,16 @@ batch_size = 32
 img_height = 180
 img_width = 180
 
-epochs=10
+epochs=75
 
 datasetDir = 'C://Users//callu//Documents//Projects//Coin Counter//ObjectDetector//SegmentedDataset//'
 
 
 #%% Load the datasets
 # Load the training dataset
-train_datagen = ImageDataGenerator(rescale=1./255)
+train_datagen = ImageDataGenerator(rescale=1./255, rotation_range=0.3,
+                                   horizontal_flip=True, 
+                                   vertical_flip=True)
 
 train_ds = train_datagen.flow_from_directory(
     directory= datasetDir + "train/",
@@ -75,6 +77,7 @@ test_ds = test_datagen.flow_from_directory(
 #%% Create the basic model
 num_classes = 8
 
+
 model = Sequential([
   layers.Conv2D(16, 3, padding='same', activation='relu'),
   layers.MaxPooling2D(),
@@ -82,6 +85,7 @@ model = Sequential([
   layers.MaxPooling2D(),
   layers.Conv2D(64, 3, padding='same', activation='relu'),
   layers.MaxPooling2D(),
+  layers.Dropout(0.2),
   layers.Flatten(),
   layers.Dense(128, activation='relu'),
   layers.Dense(num_classes)
